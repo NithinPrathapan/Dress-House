@@ -14,30 +14,60 @@ import Listing from "./pages/shopping-view/Listing";
 import Checkout from "./pages/shopping-view/Checkout";
 import AccountPage from "./pages/shopping-view/AccountPage";
 import Home from "./pages/shopping-view/Home";
+import CheckAuth from "./components/commen/checkAuth";
+import UnAuth from "./pages/un-auth/UnAuth";
 
 const App = () => {
+  const isAuthenticated = true;
+  const user = {
+    name: "Nithin",
+    role: "user",
+  };
+
   console.log("hello");
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
-        <Route path="/auth" element={<AuthLayout />}>
+        <Route
+          path="/auth"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <AuthLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
         </Route>
         {/* admin routes */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <AdminLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="products" element={<Products />} />
           <Route path="orders" element={<Orders />} />
           <Route path="features" element={<Features />} />
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
-        <Route path="/shop" element={<ShoppingLayout />}>
+        <Route
+          path="/shop"
+          element={
+            <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+              <ShoppingLayout />
+            </CheckAuth>
+          }
+        >
           <Route path="home" element={<Home />} />
           <Route path="listing" element={<Listing />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="account" element={<AccountPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
+        <Route path="/unauth-page" element={<UnAuth />} />
       </Routes>
     </div>
   );
