@@ -10,6 +10,10 @@ import Products from "./pages/admin-view/Products";
 import Features from "./pages/admin-view/Features";
 import ShoppingLayout from "./components/shopping-view/ShoppingLayout";
 import NotFound from "./pages/Not-found/NotFound";
+import Listing from "./pages/shopping-view/Listing";
+import Checkout from "./pages/shopping-view/Checkout";
+import AccountPage from "./pages/shopping-view/AccountPage";
+import Home from "./pages/shopping-view/Home";
 
 const App = () => {
   console.log("hello");
@@ -28,8 +32,12 @@ const App = () => {
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/shop" element={<ShoppingLayout />}>
-          <Route path="*" element={<NotFound />} />
+          <Route path="home" element={<Home />} />
+          <Route path="listing" element={<Listing />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="account" element={<AccountPage />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
