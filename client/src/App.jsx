@@ -8,6 +8,8 @@ import Dashboard from "./pages/admin-view/Dashboard";
 import Orders from "./pages/admin-view/Orders";
 import Products from "./pages/admin-view/Products";
 import Features from "./pages/admin-view/Features";
+import ShoppingLayout from "./components/shopping-view/ShoppingLayout";
+import NotFound from "./pages/Not-found/NotFound";
 
 const App = () => {
   console.log("hello");
@@ -24,6 +26,9 @@ const App = () => {
           <Route path="orders" element={<Orders />} />
           <Route path="features" element={<Features />} />
           <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="/shop" element={<ShoppingLayout />}>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>
