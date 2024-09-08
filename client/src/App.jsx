@@ -18,11 +18,8 @@ import CheckAuth from "./components/commen/checkAuth";
 import UnAuth from "./pages/un-auth/UnAuth";
 
 const App = () => {
-  const isAuthenticated = true;
-  const user = {
-    name: "Nithin",
-    role: "user",
-  };
+  const isAuthenticated = false;
+  const user = null;
 
   console.log("hello");
   return (
