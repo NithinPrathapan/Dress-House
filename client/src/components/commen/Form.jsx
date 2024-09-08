@@ -9,8 +9,16 @@ import {
 } from "../ui/select";
 import { SelectItem } from "@radix-ui/react-select";
 import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 
-const CommonForm = ({ formControls, formData, setFormData, buttonText }) => {
+const CommonForm = ({
+  formControls,
+  formData,
+  setFormData,
+  buttonText,
+  onSubmit,
+  isBtnDisabled,
+}) => {
   const renderInputByControlItem = (getControlItem) => {
     let element = null;
     let value = formData[getControlItem.name] || "";
@@ -97,16 +105,19 @@ const CommonForm = ({ formControls, formData, setFormData, buttonText }) => {
     return element;
   };
   return (
-    <div>
-      {formControls.map((controlItem) => {
-        return (
-          <div>
-            <label htmlFor="">{controlItem.name}</label>
+    <form onSubmit={onSubmit}>
+      <div className="flex flex-col gap-3">
+        {formControls.map((controlItem) => (
+          <div className="grid w-full gap-1.5" key={controlItem.name}>
+            <Label className="mb-1">{controlItem.label}</Label>
             {renderInputByControlItem(controlItem)}
           </div>
-        );
-      })}
-    </div>
+        ))}
+      </div>
+      <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full">
+        {buttonText || "Submit"}
+      </Button>
+    </form>
   );
 };
 
