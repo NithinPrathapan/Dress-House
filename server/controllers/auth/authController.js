@@ -4,13 +4,14 @@ import User from "../../models/user.js";
 
 // register
 export const register = async (req, res) => {
+  console.log("fn called");
   const { userName, email, password } = req.body;
   try {
     // password hash
-    const hashPassword = bcrypt.hash(password, 12);
+    const hashPassword = await bcrypt.hash(password, 12);
     const newUser = new User({
-      userName: userName,
-      email: email,
+      userName,
+      email,
       password: hashPassword,
     });
     await newUser.save();
