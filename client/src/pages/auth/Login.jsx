@@ -4,7 +4,7 @@ import { toast } from "@/hooks/use-toast";
 import { loginUser } from "@/store/authSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialState = {
   email: "",
@@ -14,6 +14,7 @@ const initialState = {
 const Register = () => {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   function onSubmit(e) {
     e.preventDefault();
     dispatch(loginUser(formData)).then((data) => {
@@ -22,6 +23,12 @@ const Register = () => {
         toast({
           title: "Success",
           description: data.payload.message,
+        });
+      } else {
+        toast({
+          title: "Failed To Login",
+          description: data.payload.message,
+          variant: "destructive",
         });
       }
     });

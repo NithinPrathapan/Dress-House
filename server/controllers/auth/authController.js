@@ -34,7 +34,7 @@ export const register = async (req, res) => {
       .json({ success: true, message: "Registration successful", newUser });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: "false", message: "some error occured" });
+    res.status(500).json({ success: false, message: "some error occured" });
   }
 };
 
@@ -44,14 +44,14 @@ export const login = async (req, res) => {
   try {
     const userExist = await User.findOne({ email: email });
     if (!userExist)
-      return res.json({ success: "false", message: "User doesn't exists" });
+      return res.json({ success: false, message: "User doesn't exists" });
 
     const checkPasswordMatch = await bcrypt.compare(
       password,
       userExist.password
     );
     if (!checkPasswordMatch)
-      return res.json({ success: "false", message: "Password incorrect" });
+      return res.json({ success: false, message: "Password incorrect" });
 
     const token = jwt.sign(
       {
@@ -73,10 +73,16 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: "false", message: "some error occured" });
+    res.status(500).json({ success: false, message: "some error occured" });
   }
 };
 
 // logout
+
+export const logout = (req, res) => {
+  res
+    .clearCookie("token")
+    .json({ success: true, message: "Logged out successfully" });
+};
 
 // authmiddleware

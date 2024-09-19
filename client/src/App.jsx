@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AuthLayout from "./components/auth/AuthLayout";
@@ -22,6 +22,7 @@ const App = () => {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
   );
+  if (user) console.log(user.role);
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
