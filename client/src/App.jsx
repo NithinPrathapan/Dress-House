@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -16,13 +16,15 @@ import AccountPage from "./pages/shopping-view/AccountPage";
 import Home from "./pages/shopping-view/Home";
 import CheckAuth from "./components/commen/checkAuth";
 import UnAuth from "./pages/un-auth/UnAuth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "./store/authSlice";
 
 const App = () => {
-  const { user, isAuthenticated, isLoading } = useSelector(
-    (state) => state.auth
-  );
-  if (user) console.log(user.role);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
