@@ -14,17 +14,18 @@ import Listing from "./pages/shopping-view/Listing";
 import Checkout from "./pages/shopping-view/Checkout";
 import AccountPage from "./pages/shopping-view/AccountPage";
 import Home from "./pages/shopping-view/Home";
-import CheckAuth from "./components/commen/checkAuth";
 import UnAuth from "./pages/un-auth/UnAuth";
 import { useDispatch, useSelector } from "react-redux";
+import CheckAuth from "./components/commen/CheckAuth";
 import { checkAuth } from "./store/authSlice";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
+  console.log(user, isAuthenticated);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkAuth());
-  }, [dispatch]);
+  },[dispatch]);
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>

@@ -31,20 +31,19 @@ export const loginUser = createAsyncThunk("/auth/login", async (formData) => {
   return response.data;
 });
 
-export const checkAuth = createAsyncThunk(
-  "/auth/checkAuth",
-  async (req, res) => {
-    const response = await axios.get(
-      "http://localhost:4000/api/auth/check-auth",
-      {
-        withCredentials: true,
-        headers: {
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-        },
-      }
-    );
-  }
-);
+export const checkAuth = createAsyncThunk("/auth/checkAuth", async () => {
+  const response = await axios.get(
+    "http://localhost:4000/api/auth/check-auth",
+    {
+      withCredentials: true,
+      headers: {
+        "Cache-Control":
+          "no-cache, no-store, must-revalidate ,proxy-revalidate",
+      },
+    }
+  );
+  return response.data;
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -85,7 +84,7 @@ const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
-        console.log(action.payload.success);
+        console.log(action.payload, "authslice payload");
         state.isLoading = false;
         state.user = action.payload.success ? action.payload.user : null;
         state.isAuthenticated = action.payload.success ? true : false;
