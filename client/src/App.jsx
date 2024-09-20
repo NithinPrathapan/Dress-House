@@ -18,14 +18,21 @@ import UnAuth from "./pages/un-auth/UnAuth";
 import { useDispatch, useSelector } from "react-redux";
 import CheckAuth from "./components/commen/CheckAuth";
 import { checkAuth } from "./store/authSlice";
+import { Skeleton } from "./components/ui/skeleton";
 
 const App = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, isLoading } = useSelector(
+    (state) => state.auth
+  );
   console.log(user, isAuthenticated);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkAuth());
-  },[dispatch]);
+  }, [dispatch]);
+
+  if (isLoading)
+    return <Skeleton className="w-[100px] h-[20px] rounded-full" />;
+
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
