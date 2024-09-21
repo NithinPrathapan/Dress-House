@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { AlignJustify, LogOut } from "lucide-react";
 
-const AdminHeader = () => {
+const AdminHeader = ({ open, setOpen }) => {
   const dispatch = useDispatch();
 
   function handleLogout() {
