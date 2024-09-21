@@ -22,7 +22,7 @@ const CommonForm = ({
   const renderInputByControlItem = (getControlItem) => {
     let element = null;
     let value = formData[getControlItem.name] || "";
-    switch (getControlItem.input) {
+    switch (getControlItem.componentType) {
       case "input":
         element = (
           <Input
@@ -65,6 +65,7 @@ const CommonForm = ({
             </SelectContent>
           </Select>
         );
+        break;
       case "textarea":
         element = (
           <Textarea
