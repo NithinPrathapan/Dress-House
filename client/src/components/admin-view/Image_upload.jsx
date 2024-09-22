@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { CloudUpload, FileImage, X } from "lucide-react";
 import { Button } from "../ui/button";
+import axios from "axios";
 const ProductImageUpload = ({
   imageFile,
   uploadedImageUrl,
@@ -11,7 +12,6 @@ const ProductImageUpload = ({
 }) => {
   const inputRef = useRef(null);
   const handleImageFileChange = (e) => {
-    console.log(e.target.files);
     const selectedFile = e.target.files?.[0];
     if (selectedFile) setImageFile(selectedFile);
   };
@@ -29,6 +29,19 @@ const ProductImageUpload = ({
       inputRef.current.value = "";
     }
   }
+  const uploadImageToCloudinary = async () => {
+    const data = new FormData();
+    data.append("my_file", imageFile);
+    const response = await axios.post(
+      "http://localhost:4000/api/admin/products/upload-image",
+      data
+    );
+    console.log(response.data, "upload data response");
+    if (response?.data?.success) setUploadedImageUrl(response.data);
+  };
+  useEffect(() => {
+    if (imageFile !== null) uploadImageToCloudinary();
+  }, [imageFile]);
   return (
     <div className="w-full max-w-md mx-auto mt-4">
       <Label
