@@ -19,6 +19,7 @@ const CommonForm = ({
   onSubmit,
   isBtnDisabled,
 }) => {
+  console.log(formData);
   const renderInputByControlItem = (getControlItem) => {
     let element = null;
     let value = formData[getControlItem.name] || "";

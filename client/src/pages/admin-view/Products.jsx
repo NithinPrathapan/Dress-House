@@ -24,6 +24,7 @@ const Products = () => {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);
   const [imageFile, setImageFile] = useState(null);
+  const [imageLoadingState, setImageLoadingState] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   function onSubmit() {}
   return (
@@ -49,6 +50,8 @@ const Products = () => {
             imageFile={imageFile}
             uploadedImageUrl={uploadedImageUrl}
             setUploadedImageUrl={setUploadedImageUrl}
+            imageLoadingState={imageLoadingState}
+            setImageLoadingState={setImageLoadingState}
           />
           <div className="py-6">
             <CommonForm
